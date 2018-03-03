@@ -2,8 +2,9 @@
 
 ##Serial port
 
-`Serial.getc()`,`Serial.putc()` and `Serial.printf()` are not allowed to work in RTOS. Because they use `mutex` to 
-prevent read and write from the buffer while reading and writing. `mutex` cant work in Thread. 
+`stdio (printf, putc, getc, etc), malloc` & `new` in ISR
+
+Because of the mutexes in the ARM C standard library you cannot use stdio (printf, putc, getc, etc), malloc and new in ISR! Therefore, serial interrupt will not work in RTOS.
 Therefore, to solve this issue, mbed developed RawSerial.
 
 Sample code for communication between 2 microcontroller - Receiving side:
